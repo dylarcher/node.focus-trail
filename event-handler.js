@@ -1,7 +1,6 @@
 
 // configurations for plugin
 const options = {
-  id: "focus-trail", // selector id
   attach: { // attach listener to this event type
   	types: "keyup",
     keys: { tab: 9 } // include key bindings for keyboard event limiting
