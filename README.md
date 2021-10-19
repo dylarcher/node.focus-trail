@@ -1,4 +1,9 @@
 # Event Handler
 
-Simple window event handler for managing multiple event types
-Easy aborting, unsubscribing, etc.
+Simple window event handler
+
+Includes: 
+ - Aborting
+ - Subscribing
+ - Unsubscribing
+ - Multiple events at once
