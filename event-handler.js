@@ -31,10 +31,10 @@ class Event {
   }
 
   // Cancel an in-progress event
-  cancel() {
+  cancel(controller = this.controller) {
 
-  	// execute controller's abort method
-    this.controller.abort()
+    // execute controller's abort method
+    controller.abort()
     
     // return Event for chaining
     return this
