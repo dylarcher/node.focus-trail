@@ -1,5 +1,5 @@
 // configurations for plugin
-const options = {
+export default {
   selector: '#focus-trail', // selector id
   app: '#demo', // wrapper selector
   form: {
