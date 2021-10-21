@@ -1,0 +1,99 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Focus Flow Demo</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  
+<div id="demo">
+  <form novalidate autocomplete="off">
+    <div>
+      <p>
+        This is a paragraph that has a <a href="#" class="link" title="An anchor title">Link</a> within it to demonstrate the tab state between a variety of focusable elements.
+      </p>
+    </div>
+    <div>
+      <label for="name" class="input" aria-labelledBy="#name-label">
+        <small id="name-label" class="input-label">Full Name</small>
+        <input
+          type="text"
+          id="name"
+          class="input-field"
+          name="name"
+          placeholder="e.g. Jane Doe"
+          minlength="2"
+          required
+        />
+      </label>
+
+      <label for="tel" class="input" aria-labelledBy="#tel-label">
+        <small id="tel-label" class="input-label">Phone Number</small>
+        <input
+          type="tel"
+          id="tel"
+          class="input-field"
+          name="tel"
+          placeholder="e.g. 919-420-6969"
+          minlength="7"
+          required
+        />
+      </label>
+    </div>
+    <div>
+      <button role="button" type="button" class="button" aria-label="A button label">
+        <span class="button-content">
+          <svg class="button-icon" role="presentation">
+            <use xlink:href="#icon-beaker" /></svg>
+          <span class="button-text">Button</span>
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" hidden>
+  <symbol id="icon-beaker" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <title>Beaker Icon</title>
+    <desc>This is just a placeholder icon for now</desc>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+  </symbol>
+</svg>
+
+<script>
+  const activateOn = options.events.attach
+
+  // create trail instance
+  const tail = new FocusFlow({
+    wrapper: options.app,
+    selector: options.selector,
+    actionKey: activateOn.keys.tab
+  })
+
+  // new event instance with add/remove options
+  const emit = new Event({
+    add: activateOn.types
+  })
+
+  // make body unfocusable
+  document.body.setAttribute('tabindex', '-1')
+
+  // emit/init subscription to FocusFlow
+  emit.subscribe(tail.focusFlow())
+</script>
+
+</body>
+
+</html>
