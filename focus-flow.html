@@ -16,41 +16,80 @@
 </head>
 
 <body>
-  
 <div id="demo">
   <form novalidate autocomplete="off">
+  
     <div>
-      <p>
-        This is a paragraph that has a <a href="#" class="link" title="An anchor title">Link</a> within it to demonstrate the tab state between a variety of focusable elements.
-      </p>
+      <p>This is a paragraph that has a <a href="#" class="link" title="An anchor title">Link</a> within it to demonstrate the tab state between a variety of focusable elements.</p>
     </div>
+    
     <div>
+    
       <label for="name" class="input" aria-labelledBy="#name-label">
         <small id="name-label" class="input-label">Full Name</small>
-        <input
-          type="text"
-          id="name"
-          class="input-field"
-          name="name"
-          placeholder="e.g. Jane Doe"
-          minlength="2"
-          required
-        />
+        <input type="text" id="name" class="input-field" name="name" placeholder="e.g. Jane Doe" minlength="2" required />
       </label>
 
       <label for="tel" class="input" aria-labelledBy="#tel-label">
         <small id="tel-label" class="input-label">Phone Number</small>
-        <input
-          type="tel"
-          id="tel"
-          class="input-field"
-          name="tel"
-          placeholder="e.g. 919-420-6969"
-          minlength="7"
-          required
-        />
+        <input type="tel" id="tel" class="input-field" name="tel" placeholder="e.g. 919-420-6969" minlength="7" required />
       </label>
+
+      <div class="input" aria-labelledBy="#select-label">
+        <small id="select-label" class="input-label">Who is the best player to touch a basketball?</small>
+        <select id="select" class="input-field" name="select">
+          <option label="Michael Jordan" value="michael-jordan-1">Michael Jordan</option>
+          <option label="Michael Jordan...again" value="michael-jordan-2">Michael Jordan</option>
+        </select>
+      </div>
+      
+      <div class="input" role="group" aria-labelledby="zeppelin-head">
+        <small class="input-label" id="zeppelin-head">Who is the best member of Led Zeppelin?</small>
+        <div class="radio column">
+          <label class="subinput-label" for="jimmy-page">
+            <input class="radio-field" id="jimmy-page" type="radio" name="zeppelin" value="zeppelin-jimmy-page" aria-labelledBy="jimmy-page-label" required />
+            <span id="jimmy-page-label">Jimmy Page</span>
+          </label>
+          <label class="subinput-label" for="john-paul-jones">
+            <input class="radio-field" id="john-paul-jones" type="radio" name="zeppelin" value="zeppelin-john-paul-jones"  aria-labelledBy="john-paul-jones-label" />
+            <span id="john-paul-jones-label">John Paul Jones</span>
+          </label>
+          <label class="subinput-label" for="robert-plant">
+            <input class="radio-field" id="robert-plant" type="radio" name="zeppelin" value="zeppelin-robert-plant" aria-labelledBy="robert-plant-label" />
+            <span id="robert-plant-label">Robert Plant</span>
+          </label>
+          <label class="subinput-label" for="john-bonham">
+            <input class="radio-field" id="john-bonham" type="radio" name="zeppelin" value="zeppelin-john-bonham" aria-labelledBy="john-bonham-label" />
+            <span id="john-bonham-label">John Bonham</span>
+          </label>
+        </div>
+      </div>
+      
+      
+      <div class="input" role="group" aria-labelledby="beatles-head">
+        <small class="input-label" id="beatles-head">Who are the bests members of The Beatles?</small>
+        <div class="radio column">
+          <label class="subinput-label" for="john-lennon">
+            <input class="radio-field" id="john-lennon" type="checkbox" name="beatles" value="beatles-john-lennon" aria-labelledBy="john-lennon-label" required />
+            <span id="john-lennon-label">John Lennon</span>
+          </label>
+          <label class="subinput-label" for="paul-mccartney">
+            <input class="radio-field" id="paul-mccartney" type="checkbox" name="beatles" value="beatles-paul-mccartney"  aria-labelledBy="paul-mccartney-label" />
+            <span id="paul-mccartney-label">Paul McCartney</span>
+          </label>
+          <label class="subinput-label" for="george-harrison">
+            <input class="radio-field" id="george-harrison" type="checkbox" name="beatles" value="beatles-george-harrison" aria-labelledBy="george-harrison-label" />
+            <span id="george-harrison-label">George Harrison</span>
+          </label>
+          <label class="subinput-label" for="ringo-star">
+            <input class="radio-field" id="ringo-star" type="checkbox" name="beatles" value="beatles-ringo-starr" aria-labelledBy="ringo-starr-label"/>
+            <span id="ringo-starr-label">Ringo Starr</span>
+          </label>
+        </div>
+      </div>
+      
     </div>
+    
     <div>
       <button role="button" type="button" class="button" aria-label="A button label">
         <span class="button-content">
@@ -60,9 +99,9 @@
         </span>
       </button>
     </div>
+    
   </form>
 </div>
-    
 
 <svg xmlns="http://www.w3.org/2000/svg" hidden>
   <symbol id="icon-beaker" fill="none" viewBox="0 0 24 24" stroke="currentColor">
