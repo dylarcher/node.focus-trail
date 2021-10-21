@@ -73,17 +73,21 @@
 </svg>
 
 <script>
+  import options from '/configs.js'
+  import Event from '/event-handler.js'
+  import FocusFlow from '/focus-flow.js'
+  
   const activateOn = options.events.attach
 
   // create trail instance
-  const tail = new FocusFlow({
+  const tail = FocusFlow({
     wrapper: options.app,
     selector: options.selector,
     actionKey: activateOn.keys.tab
   })
 
   // new event instance with add/remove options
-  const emit = new Event({
+  const emit = Event({
     add: activateOn.types
   })
 
