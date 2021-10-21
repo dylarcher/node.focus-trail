@@ -1,5 +1,3 @@
-import options from '/configs.js'
-
 class Event {
   constructor({ add, remove, controller = new AbortController(), target = window }) {
     this.controller = controller
