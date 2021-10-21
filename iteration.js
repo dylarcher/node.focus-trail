@@ -43,3 +43,5 @@ class Iterate {
   }
 
 }
+
+export default new Iterate()
