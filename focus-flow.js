@@ -77,16 +77,21 @@ class FocusFlow {
       }
       // on tab or click of a focusable element
       if ((tabPress || click) && match) {
+      	// get user input parent selectors
+      	const inputWrapper = options.form.fieldWrapper
+        // user input area is active while parent selector is avaliable
+        const inputFieldParent = formField && inputWrapper && inputWrapper.length
       	// if user input area, wrap parentNode
-        return formField ? Object.assign(flowStyle, {
-        	// get active node
-          ...Query.activeNodeState(target
-        	  // get active node parent
-            .closest(options.form.fieldWrapper)
-          // get active node parent color
-          ), color: getComputedStyle(target).color
-        // if not user input area, only interactable, wrap activeNode
-        }) : Object.assign(flowStyle, Query.activeNodeState())
+        return inputFieldParent
+          ? Object.assign(flowStyle, {
+	    // get active node
+	    ...query.activeNodeState(target
+	    // get active node parent
+	    .closest(options.form.fieldWrapper)
+	    // get active node parent color
+	    ), color: getComputedStyle(target).color
+          }) // if not user input area, only interactable, wrap activeNode
+          : Object.assign(flowStyle, query.activeNodeState())
       }
     }
   }
