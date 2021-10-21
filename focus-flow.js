@@ -87,7 +87,7 @@ class FocusFlow {
 	    // get active node
 	    ...query.activeNodeState(target
 	    // get active node parent
-	    .closest(options.form.fieldWrapper)
+	    .closest(inputWrapper)
 	    // get active node parent color
 	    ), color: getComputedStyle(target).color
           }) // if not user input area, only interactable, wrap activeNode
