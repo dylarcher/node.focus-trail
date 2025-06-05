@@ -1,26 +1,4 @@
-import '../css/focus-flow.css';
-
 class FocusFlow {
-	matchRef(value, ref) {
-		return value === ref;
-	}
-
-	isNull(value) {
-		return this.matchRef(null, value);
-	}
-
-	isDefined(value) {
-		return this.matchRef(undefined, value);
-	}
-
-	matchRefs(value, refArray) {
-		return this.enforceArray(refArray).includes(value);
-	}
-
-	isArray(arr) {
-		return Array.isArray(arr);
-	}
-
 	hideAttr(node) {
 		return node.setAttribute('hidden', '');
 	}
@@ -38,11 +16,11 @@ class FocusFlow {
 	}
 
 	isKeyStroke(event) {
-		return !this.matchRef(false, this.isTab(event));
+		return this.isTab(event); // Simplified: ! (false === this.isTab(event)) means this.isTab(event) must be true
 	}
 
 	canUse(value) {
-		return !this.matchRefs(true, [this.isNull(value), this.isDefined(value)]);
+		return value !== null && value !== undefined;
 	}
 
 	removeAttr(attr) {
@@ -50,7 +28,7 @@ class FocusFlow {
 	}
 
 	isFocusable(event) {
-		return this.matchRefs(event.target, this.queryFocusableAll()); // focusable elements
+		return this.queryFocusableAll().includes(event.target); // focusable elements
 	}
 
 	hideHelpers() {
@@ -82,55 +60,44 @@ class FocusFlow {
 	}
 
 	isObject(obj) {
-		return !this.matchRefs(false, [
-			this.matchRef(undefined, obj),
-			this.matchRef('object', typeof obj),
-			this.matchRef(false, Array.isArray(obj))
-		]);
+		// Simplified: obj !== undefined && typeof obj === 'object' && Array.isArray(obj) === false
+		return obj !== null && obj !== undefined && typeof obj === 'object' && !Array.isArray(obj);
 	}
 
 	isTab(event) {
-		return !this.matchRefs(false, [
-			this.matchRefs(event.type, 'keyup'), // keyboard in use
-			this.matchRefs(event.keyCode, 9) // tab key pressed
-		]);
+		// Simplified: (event.type === 'keyup') && (event.keyCode === 9)
+		return event.type === 'keyup' && event.keyCode === 9;
 	}
 
 	isEnabled(activator = this.nodelist.activator) {
-		return !this.matchRefs(false, [
-			!this.isNull(activator), // node found
-			this.matchRef(true, activator.checked) // node is "checked"
-		]);
+		// Simplified: (activator !== null) && (activator.checked === true)
+		// Using optional chaining:
+		return activator?.checked === true;
 	}
 
 	isArrows(event) {
-		return !this.matchRefs(false, [
-			this.matchRefs(event.type, 'keyup'), // keyboard in use
-			this.matchRefs(event.keyCode, [37, 38, 39, 40]) // arrow keys pressed
-		]);
+		// Simplified: (event.type === 'keyup') && ([37, 38, 39, 40].includes(event.keyCode))
+		return event.type === 'keyup' && [37, 38, 39, 40].includes(event.keyCode);
 	}
 
 	isRadio(node) {
-		return !this.matchRefs(false, [
-			this.matchRefs(node.tagName, 'INPUT'), // input element
-			this.matchRefs(node.type, 'radio') // radio type
-		]);
+		// Simplified: (node.tagName === 'INPUT') && (node.type === 'radio')
+		return node.tagName === 'INPUT' && node.type === 'radio';
 	}
 
 	isCheckbox(node) {
-		return !this.matchRefs(false, [
-			this.matchRefs(node.tagName, 'INPUT'), // input element
-			this.matchRefs(node.type, 'checkbox') // checkbox type
-		]);
+		// Simplified: (node.tagName === 'INPUT') && (node.type === 'checkbox')
+		return node.tagName === 'INPUT' && node.type === 'checkbox';
 	}
 
 	isApproved(event) {
-		return !this.matchRefs(false, [
-			this.canUse(this.nodelist.flow),
-			this.isEnabled(this.nodelist.activator),
-			this.isTab(event),
+		// Simplified: this.canUse(this.nodelist.flow) && this.isEnabled(this.nodelist.activator) && this.isTab(event) && this.isFocusable(event)
+		return (
+			this.canUse(this.nodelist.flow) &&
+			this.isEnabled(this.nodelist.activator) &&
+			this.isTab(event) &&
 			this.isFocusable(event)
-		]);
+		);
 	}
 
 	convertToRem(numerator) {
@@ -141,7 +108,7 @@ class FocusFlow {
 	}
 
 	enforceArray(value) {
-		return this.matchRef(false, this.isArray(value))
+		return !Array.isArray(value)
 			? [value]
 			: [...new Set(value)];
 	}
@@ -212,9 +179,9 @@ class FocusFlow {
 		const selected = [...document.querySelectorAll('[aria-selected="true"]')];
 		selected.forEach(this.setAttr({ ariaSelected: 'false' }));
 		return event => {
-			this.matchRefs(event.type, events) &&
+			this.enforceArray(events).includes(event.type) &&
 				this.nodelist.flow.classList.remove('active');
-			this.matchRef('submit', event.type) && event.preventDefault();
+			event.type === 'submit' && event.preventDefault();
 		};
 	}
 
@@ -223,8 +190,8 @@ class FocusFlow {
 		return event => {
 			let target = event.target;
 			const ignore = [this.nodelist.activator, document.body];
-			if (!this.matchRefs(target, ignore) && this.isEnabled()) {
-				target = !this.matchRefs(target.tagName, 'BUTTON')
+			if (!this.enforceArray(ignore).includes(target) && this.isEnabled()) {
+				target = !(target.tagName === 'BUTTON')
 					? this.prevNode(this.selectors.inputWrapper)(target)
 					: target;
 				this.conceal([event.type])(event);
@@ -264,7 +231,7 @@ class FocusFlow {
 			wrappers: document.querySelectorAll(inputWrapper),
 			radios: document.querySelectorAll(radioClass)
 		};
-		this.isNull(this.nodelist.flow) && this.appendTo(this.nodelist.app);
+		(this.nodelist.flow === null) && this.appendTo(this.nodelist.app);
 		return this;
 	}
 
