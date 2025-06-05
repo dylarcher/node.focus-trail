@@ -61,7 +61,7 @@ class FocusFlow {
 
 	isObject(obj) {
 		// Simplified: obj !== undefined && typeof obj === 'object' && Array.isArray(obj) === false
-		return obj !== undefined && typeof obj === 'object' && !Array.isArray(obj);
+		return obj !== null && obj !== undefined && typeof obj === 'object' && !Array.isArray(obj);
 	}
 
 	isTab(event) {
